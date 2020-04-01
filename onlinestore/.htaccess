@@ -1,0 +1,2 @@
+RewriteEngine On
+RewriteRule ^([a-zA-Z0-9-=_?]+)/?$ RequestHandler.php?filter=$1 [L]

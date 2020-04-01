@@ -17,9 +17,14 @@ class FacadRequestHandler
                 $user->setPassword($_POST['password']);
                 $user->setUserType($_POST['user_type']); 
             }
+            else
+            {
+                $file = Array("message " => "Please Fill All The Data!");
+                print_r(json_encode($file));
+                return;
+            }
 
             $acessController = new AccessController($user);
-
             if($acessController->makeRegestiration())
             {
                 $file = Array("message " => "Congrats you have been registered Succefully!","name " => $user->getUserName(),"Email "=>$user->getEmail());
@@ -45,7 +50,13 @@ class FacadRequestHandler
                 $user->setPassword($_POST['password']);
                 
             }
-
+            else
+            {
+                $file = Array("message " => "Please Fill All The Data!");
+                print_r(json_encode($file));
+                return;
+            }
+            
             $acessController = new AccessController($user);
             if($acessController->makeLogin())
             {
@@ -53,16 +64,17 @@ class FacadRequestHandler
             }
             else
             {
-                $file = Array("message " => "you need to sign up to login!");
+                $file = Array("message " => "Email or password is not correct!");
             }
             print_r(json_encode($file));
         }
 
         elseif($_GET['filter'] == 'getAllUsers')
-        {            
+        {           
             require_once('AdminController.php');
             $admin = new AdminController();
-            $admin->getAllRegistedUsers();
+            $result[] = $admin->getAllRegistedUsers();
+            print_r(json_encode($result));
         }
 
         else
@@ -72,26 +84,5 @@ class FacadRequestHandler
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ?>

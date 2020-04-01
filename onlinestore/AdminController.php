@@ -11,8 +11,7 @@ class AdminController
 
     public function getAllRegistedUsers()
     {
-        $result [] = $this->userModel->selectRegistedUsers();
-        print_r(json_encode($result));
+        return $this->userModel->selectRegistedUsers();
     }
 }
 
