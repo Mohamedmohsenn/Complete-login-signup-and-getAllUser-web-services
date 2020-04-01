@@ -82,6 +82,7 @@ class FacadRequestHandler
             $file = Array("message " => "The requested URL was not found on this server.");
             print_r(json_encode($file));
         }
+        
     }
 }
 
