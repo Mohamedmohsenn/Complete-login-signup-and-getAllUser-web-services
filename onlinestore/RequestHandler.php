@@ -28,9 +28,21 @@ class FacadRequestHandler
         }
 
         elseif($_GET['filter'] == 'Admin/GetAllUsers')
-        {           
-            $this->adminController->getAllUsers();
+        {      
+            session_start();     
+            if(isset($_SESSION['login']))
+            {
+                if($_SESSION['login'] == "admin")
+                {
+                    $this->adminController->getAllUsers();
+                }
+                else
+                {
+                    echo 'blocked';
+                } 
+           }
         }
+        
         else
         {
             echo "404 ERROR The requested URL was not found on this server.";

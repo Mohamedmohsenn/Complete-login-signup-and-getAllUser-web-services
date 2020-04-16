@@ -14,6 +14,9 @@ class LoginService
         {
                 if($this->userModel->IsAccountExistByEmail($user->getEmail(),$user->getPassword()))
                 {
+                   $userType = $this->userModel->selectUserByEmail($user->getEmail(),$user->getPassword());
+                   session_start();
+                   $_SESSION['login'] = $userType;
                    return true;
                 }
                 return false;
@@ -22,12 +25,17 @@ class LoginService
         {
             if($this->userModel->IsAccountExistByUserName($user->getUserName(),$user->getPassword()))
             {
+                $userType = $this->userModel->selectUserByUserName($user->getUserName(),$user->getPassword());
+                session_start();
+                $_SESSION['login'] = $userType;
                 return true;
             }
             return false;
         }
         return false;
     }
+
+
 }
 
 ?>

@@ -72,6 +72,31 @@ class UserModel
         return $result;
     }
 
+    public function selectUserByEmail($email,$password)
+    {
+        $query = "select user_type from users where email = '$email' and password = '$password'";
+        $result = mysqli_query($this->conn,$query);
+        
+        if(mysqli_num_rows($result) > 0)
+        {
+            $row = $result->fetch_assoc();
+            return $row['user_type'];   
+        }
+        return null;
+    }
+    public function selectUserByUserName($userName,$password)
+    {
+        $query = "select user_type from users where user_name = '$userName' and password = '$password'";
+        $result = mysqli_query($this->conn,$query);
+        
+        if(mysqli_num_rows($result) > 0)
+        {
+            $row = $result->fetch_assoc();
+            return $row['user_type'];   
+        }
+        return null;
+    }
+
     public function endConnection()
     {
         mysqli_close($this->conn);
