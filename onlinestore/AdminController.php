@@ -1,18 +1,25 @@
 <?php
 
-require_once('UserModel.php');
+require_once('GetAllUsersService.php');
+require_once('loginservice.php');
+
 class AdminController
 {
-    private $userModel;
+    private $allUsersService;
+    private $loginService;
+
     public function __construct()
     {
-        $this->userModel = new UserModel();   
+        $this->allUsersService = new GetAllUsersService();
+        $this->loginService = new LoginService();
     }
 
-    public function getAllRegistedUsers()
+    public function getAllUsers()
     {
-        return $this->userModel->selectRegistedUsers();
+        $result[] = $this->allUsersService->getAllRegistedUsers();
+        print_r(json_encode($result));
     }
+
 }
 
 ?>
