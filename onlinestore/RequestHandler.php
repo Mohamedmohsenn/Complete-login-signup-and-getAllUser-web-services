@@ -3,7 +3,7 @@ require_once('AdminController.php');
 require_once('UserController.php');
 
 $request = new FacadRequestHandler();
-$request->hanlde();
+$request->handle();
 class FacadRequestHandler
 {
     private $adminController ;
@@ -15,7 +15,7 @@ class FacadRequestHandler
         $this->userController = new UserController();
     }
 
-    public function hanlde()
+    public function handle()
     { 
         if($_GET['filter'] == 'register')
         {
@@ -29,24 +29,32 @@ class FacadRequestHandler
 
         elseif($_GET['filter'] == 'Admin/GetAllUsers')
         {      
-            session_start();     
-            if(isset($_SESSION['login']))
+            if($this->isAdmin())
             {
-                if($_SESSION['login'] == "admin")
-                {
-                    $this->adminController->getAllUsers();
-                }
-                else
-                {
-                    echo 'blocked';
-                } 
-           }
+                $this->adminController->getAllUsers();
+            }
+            else
+            {
+                echo 'blocked';
+            } 
         }
         
         else
         {
             echo "404 ERROR The requested URL was not found on this server.";
         }
+    }
+
+    private function isAdmin()
+    {
+        session_start();     
+        if(isset($_SESSION['login']))
+        {
+            if($_SESSION['login'] == "admin")
+                return true;
+            return false;
+        }
+        return false;
     }
 }
 
